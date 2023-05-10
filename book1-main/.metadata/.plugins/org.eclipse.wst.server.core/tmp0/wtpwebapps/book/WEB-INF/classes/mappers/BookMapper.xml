@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ezen.book.repository.BookDAO">
+   <select id="getBookList"
+      resultType="com.ezen.book.domain.BookVO">
+      select * from book order by book_sales desc
+   </select>
+   
+   
+   
+   
+   <select id="selectBookListPaging"
+      resultType="com.ezen.book.domain.BookVO">
+      select*from book where book_num>0
+      <include refid="search"></include>
+      order by book_num desc limit #{pageStart},#{qty}
+   </select>
+
+
+   <select id="searchBookTotalCount" resultType="int">
+      select
+      count(book_num) from book where book_num>0
+      <include refid="search"></include>   
+   </select>
+
+   <select id="getBookList2"
+      resultType="com.ezen.book.domain.BookVO">
+      select * from book where book_cno=#{content};
+   </select>
+
+   <insert id="insertBook"
+      parameterType="com.ezen.book.domain.BookVO">
+      insert into book
+      (book_title, book_writer, book_price, book_publisher, book_date,
+      book_count,book_content, book_cno)
+      values
+      (#{book_title},#{book_writer}, #{book_price},
+     #{book_publisher},  #{book_date},
+      #{book_count},#{book_content}, #{book_cno})
+   </insert>
+   <select id="selectBookList"
+      resultType="com.ezen.book.domain.BookVO">
+      select * from book order by book_num desc limit #{pageStart}, #{qty}
+      <!-- select * from book a left join file b on a.book_num = b.book_num order 
+         by a.book_num desc limit #{pageStart}, #{qty} -->
+   </select>
+   
+   <select id="searchTotalCount" resultType="int">
+      select count(book_num)
+      from book
+   </select>
+   
+   <select id="selectOneBookNum" resultType="int">
+      select max(book_num)
+      from book
+   </select>
+   <select id="bookDetail" resultType="com.ezen.book.domain.BookVO">
+      select * from book where
+      book_num = #{book_num}
+   </select>
+   <update id="updateBook">
+      update book set book_title = #{book_title},
+      book_writer = #{book_writer},
+      book_price = #{book_price},
+      book_publisher = #{book_publisher}, book_count = #{book_count},
+      book_content =
+      #{book_content}
+      where book_num = #{book_num}
+   </update>
+   <delete id="deleteBook">
+      delete from book where book_num = #{book_num}
+   </delete>
+   <select id="detailSelectOne"
+      resultType="com.ezen.book.domain.BookVO">
+      select * from book where book_num =#{book_num}
+   </select>
+   
+   <select id="getBookOne" resultType="com.ezen.book.domain.BookVO">
+      select*from book order by rand() limit 1;
+   </select>
+   <!-- 상품 정보 -->
+	<select id="getGoodsInfo" resultType="com.ezen.book.domain.BookVO">
+	
+			select * from book where book_num = #{book_num}	
+	
+	</select>
+	
+   
+   <sql id="search">
+      <if test="type != null">
+         <trim prefix="and (" suffix=")" prefixOverrides="OR">
+            <foreach collection="typeToArray" item="type">
+               <trim prefix="OR">
+                  <choose>
+                     <when test="type=='t'.toString()">
+                        book_title like CONCAT('%', #{keyword}, '%')
+                     </when>
+                     <when test="type=='c'.toString()">
+                        book_writer like CONCAT('%', #{keyword}, '%')
+                     </when>
+                     
+                     <when test="type=='w'.toString()">
+                        book_publisher like CONCAT('%', #{keyword}, '%')
+                        
+                     </when>
+                     
+                  </choose>
+               </trim>
+            </foreach>
+         </trim>
+      </if>
+   </sql>
+   
+
+   
+   
+</mapper>

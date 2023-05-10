@@ -1,0 +1,34 @@
+@charset "UTF-8";
+
+.deleteTableBox {
+	margin:0 auto;
+}
+
+.checkbox {
+	margin: 0 auto;
+	color: red;
+}
+
+.Withdrawal {
+	color: gray;
+	font-size: 13px;
+}
+.long,
+.short{
+	
+	text-align: left;
+}
+.long {
+	font-size: 18px;
+	font-weight: 900;
+}
+
+.short {
+	color: gray;
+}
+
+.deleteTableBox .mypageDeleteInfoTable {
+    width: 330px;
+    height: 50px;
+    margin: 50px auto;
+}

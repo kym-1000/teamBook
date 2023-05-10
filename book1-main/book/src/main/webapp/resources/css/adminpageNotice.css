@@ -1,0 +1,47 @@
+@charset "UTF-8";
+form{
+	margin:0 auto;
+}
+.boardRegister{
+	text-align: left;
+	
+}
+.boardRegisterBox{
+
+	border: 1px solid gray;
+	padding: 25px 55px;
+	
+	width: 930px;
+	
+	margin:0 auto;
+}
+.boardRegisterBox>div{
+		margin:0 auto;
+}
+
+.brd_titleAndWriter{
+	width:762.67px;
+	margin:30px auto;
+}
+
+.ntc_title{
+	width:435px;
+}
+.btn{
+	margin:30px auto;
+}
+.btnModify{
+	margin:50px 0;
+}
+.brd_content{
+	width:766.67px;
+	height: 246px;
+}
+
+.contentBox{
+	text-align: center;
+}
+.contentLabel{
+	text-align: left;
+}
+

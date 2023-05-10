@@ -1,0 +1,44 @@
+package com.ezen.book.repository;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
+
+import com.ezen.book.domain.BoardVO;
+import com.ezen.book.domain.BookVO;
+import com.ezen.book.domain.PagingVO;
+
+@Repository
+public interface BookDAO {
+
+   ArrayList<BookVO> selectBookListPaging(PagingVO pvo);
+
+   int searchBookTotalCount();
+
+   ArrayList<BookVO> getBookList();
+
+   ArrayList<BookVO> getBookList2(int content);
+
+   int regiBook(BookVO bvo);
+
+   List<BookVO> selectBookList(PagingVO pvo);
+
+   int searchTotalCount(PagingVO pvo);
+
+   int insertBook(BookVO bkvo);
+
+   int selectOneBookNum();
+
+   BookVO bookDetail(int book_num);
+
+   int updateBook(BookVO bkvo);
+
+   int deleteBook(int book_num);
+
+   BookVO detailSelectOne(int book_num);
+
+   BookVO getBookOne();
+
+}

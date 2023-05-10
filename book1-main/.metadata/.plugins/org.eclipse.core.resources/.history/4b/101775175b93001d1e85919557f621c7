@@ -1,0 +1,6 @@
+@charset "UTF-8";
+
+.accordion-flush {
+	margin: 0 auto;
+	width: 500px;
+}

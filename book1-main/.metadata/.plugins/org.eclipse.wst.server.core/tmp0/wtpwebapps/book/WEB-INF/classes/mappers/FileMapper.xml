@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ezen.book.repository.FileDAO">
+<insert id="insertFile" parameterType="com.ezen.book.domain.FileVO">
+	insert into file (uuid, save_dir, file_name, file_type, book_num, file_size)
+  	values(#{uuid}, #{save_dir}, #{file_name}, #{file_type}, #{book_num}, #{file_size})
+</insert>
+<select id="selectFileList" resultType="com.ezen.book.domain.FileVO">
+	select * from file where book_num = #{book_num}
+</select>
+
+<select id="selectFile" resultType="com.ezen.book.domain.FileVO">
+	select * from file where book_num = #{book_num} limit 0,1
+</select>
+<delete id="deleteFile">
+	delete from file where uuid = #{uuid}
+</delete>
+</mapper>

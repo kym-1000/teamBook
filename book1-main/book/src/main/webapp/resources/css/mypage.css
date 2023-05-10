@@ -1,0 +1,72 @@
+@charset "UTF-8";
+
+/* 마이페이지 전체  */
+.main {
+	margin: 0 auto;
+	width: 1260px;
+	display: flex;
+}
+/* 마이페이지 왼쪽 메뉴 div 구역 */
+.mypage-left {
+	margin: 30px;
+	border-right: 1px solid gray;
+	width: 200px;
+	height: 801px;
+	text-align: center;
+}
+td#mem_info {
+    height: 300px;
+}
+/* 마이페이지 오른쪽 div 구역 */
+.mypage-right {
+	margin: 29px;
+	padding: 30px;
+	width: 940px;
+	height: 800px;
+	border: 1px solid gray;
+	text-align: center;
+}
+.table-striped {
+	width: 200px;
+	height: 200px;
+}
+/* 아이디,비밀번호, 핸드폰번호 사용 가능 여부 */
+.id_ok{
+color:#008000;
+display: none;
+}
+
+.id_duplicate{
+color:#ff0000; 
+display: none;
+}
+.id_null{
+color:#ff0000; 
+display: none;
+}
+.pw_ok{
+color:#008000;
+display: none;
+}
+
+.pw_rewrite{
+color:#ff0000; 
+display: none;
+}
+.pw_null{
+color:#ff0000; 
+display: none;
+}
+.cellNum_ok{
+color:#008000;
+display: none;
+}
+
+.cellNum_duplicate{
+color:#ff0000; 
+display: none;
+}
+.cellNum_null{
+color:#ff0000; 
+display: none;
+}

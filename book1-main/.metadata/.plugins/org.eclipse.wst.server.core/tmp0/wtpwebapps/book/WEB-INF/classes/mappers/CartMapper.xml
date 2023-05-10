@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.ezen.book.repository.CartDAO">
+  
+  	<select id="selectmemberONE" parameterType="int" resultType="com.ezen.book.domain.MemberVO">
+  	
+  	select * from member where mem_num = #{mem_num}
+  	
+  	</select>
+  	
+  	<select id="getBook" resultType="com.ezen.book.domain.BookVO">
+  		
+  		select * from book where book_num = #{book_num}
+  	
+  	</select>
+  	
+  	<insert id="addCartBook" parameterType="com.ezen.book.domain.BookVO">
+  	
+  		insert into cart(cart_price,cart_mem_num,cart_amount,cart_writer,cart_book_name,cart_book_num)
+  		values(#{Book_price},#{Mem_num},#{Book_amount},#{Book_writer},#{Book_title},#{bookId})
+  		
+	
+  	</insert>
+  	
+  	<select id="CartList" resultType="com.ezen.book.domain.CartVO">
+  	
+  		select * from cart  where cart_mem_num = #{mem_num} 
+  	
+  	</select>
+  	
+  	
+  	<select id="selectCart" resultType="com.ezen.book.domain.CartVO">
+  	
+  		select * from cart where cart_mem_num = #{Mem_num} and cart_book_name = #{Book_title}
+  	
+  	</select>
+  	
+  	<update id="updateCart">
+  	
+  		update cart set cart_amount = cart_amount+1 where cart_mem_num = #{Mem_num} and cart_book_name = #{Book_title}
+  		<!--  수량을 가져와서 더해야함! -->
+  		
+  	</update>
+  	
+  	
+  	<delete id="deleteCart" >
+  	
+  	delete from cart where cart_mem_num = #{mem_num} 
+  	
+  	</delete>
+  	  	
+  	<delete id="deleteSelectCart"> <!-- 장바구니에서 삭제하는 sql -->
+  	
+  	delete from cart where cart_num = #{cart}
+  	
+  	</delete>
+  	
+  	<update id="modifyCount"> <!-- 장바구니에서 수량을 바꾸는 sql -->
+  	
+  	update cart set cart_amount = #{Book_amount} where cart_num = #{cartId}
+  	
+  	</update>
+  	
+  	
+  	
+  
+  </mapper>

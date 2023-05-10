@@ -1,0 +1,77 @@
+@charset "UTF-8";
+/* 회원, 비회원 로그인창 */
+.login-box {
+	text-align: center;
+	margin: 0 auto;
+	width: 100%;
+	padding-top: 150px;
+}
+
+a {
+	text-decoration: none;
+	color: gray;
+}
+
+.logo>a>img {
+	width: 150px;
+	height: 150px;
+}
+
+.login-container {
+	border: 1px solid gray;
+	width: 500px;
+	height: 100%;
+	margin: 30px auto;
+}
+
+
+
+.loginTopBtn, .loginTopBtn2, .loginTopBtn3 {
+	height: 55px;
+}
+
+.loginTopBtn>a>button {
+	text-decoration: none;
+	background-color: white;
+	font-size: 25px;
+	width: 100px;
+	height: 50px;
+	color: gray;
+	border: none;
+	border-bottom: 1px solid gray;
+}
+
+.loginTopBtn2>a>button {
+	text-decoration: none;
+	background-color: white;
+	font-size: 20px;
+	width: 150px;
+	height: 50px;
+	color: gray;
+	border: none;
+	border-bottom: 1px solid gray;
+}
+
+.loginTopBtn3>a>button {
+	text-decoration: none;
+	background-color: white;
+	font-size: 20px;
+	width: 180px;
+	height: 50px;
+	color: gray;
+	border: none;
+	border-bottom: 1px solid gray;
+}
+
+.loginTopBtn>a>button:hover, .loginTopBtn2>a>button:hover, .loginTopBtn3>a>button:hover
+	{
+	border-bottom: 3px solid gray;
+}
+
+.login-menu-line>a {
+	magin: 10px;
+}
+
+.login>form>input {
+	margin: 5px;
+}

@@ -1,0 +1,22 @@
+package com.ezen.book.service;
+
+import java.util.List;
+
+import com.ezen.book.domain.FaqVO;
+import com.ezen.book.domain.MemberVO;
+
+public interface FaqService {
+
+	int register(FaqVO fvo);
+
+	List<FaqVO> getFaqList();
+
+	FaqVO getDetail(int faq_num);
+
+	int modifyFaq(FaqVO fvo);
+
+	int removeFaq(int faq_num, MemberVO mem);
+
+	int totalCount();
+
+}

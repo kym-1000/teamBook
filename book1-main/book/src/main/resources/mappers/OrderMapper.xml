@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ezen.book.repository.OrderDAO">
+   <select id="selectOrderList"
+      resultType="com.ezen.book.domain.OrderDTO">
+      select * from productorder
+      where order_mem_num=#{mem_num}
+      order by order_num desc
+      limit #{pvo.pageStart},#{pvo.qty};
+   </select>
+
+   <select id="selectBuyList"
+      resultType="com.ezen.book.domain.OrderDTO">
+      select * from productorder
+      where order_mem_num=#{mem_num} and order_sta=1
+      order by order_num desc
+      limit #{pvo.pageStart},#{pvo.qty};
+   </select>
+
+   <select id="orderTotalCount" resultType="int">
+      select count(order_num) from productorder where order_mem_num=#{mem_num};
+   </select>
+
+   <select id="buyTotalCount" resultType="int">
+      select count(order_num) from productorder where order_mem_num=#{mem_num} and
+      order_sta=1;
+   </select>
+   <select id="getGoodsInfo"
+      resultType="com.ezen.book.domain.OrderPageItemDTO">
+
+      select book_num, book_title, book_Price
+      from book where book_num =
+      #{Cart_book_num}
+
+   </select>
+
+   <select id="getOrderInfo"
+      resultType="com.ezen.book.domain.OrderItemDTO">
+
+      select book_num, book_price,book_title from book where
+      book_num = #{book_num}
+
+   </select>
+
+   <!-- 주문 테이블 등록 -->
+   <insert id="enrollOrder">
+
+      insert into productorder(order_num,order_date, addressee, order_mem_num,order_add1,
+      order_add2,order_sta, deliveryCost, order_usePoint)
+      values(#{order_num},#{order_date},#{addressee}, #{order_mem_num},#{order_add1},
+      #{order_add2}, '배송준비', #{deliveryCost}, #{usePoint})
+
+   </insert>
+
+   <!-- 주문 아이템 테이블 등록 -->
+   <insert id="enrollOrderItem">
+
+      insert into OrderItem(order_num, book_num, bookCount, book_price,
+     savePoint,book_name)
+      values(#{order_num}, #{book_num},
+      #{bookCount}, #{book_price}, 
+      #{savePoint},#{book_name})
+
+   </insert>
+
+   <!-- 주문 금액 차감 -->
+   <update id="deductMoney">
+
+      update member set mem_cash = #{mem_cash}, mem_point = #{mem_point} where
+      mem_num = #{mem_num}
+
+   </update>
+
+   <!-- 주문 재고 차감 -->
+   <update id="deductStock">
+
+      update book set book_count = #{book_count}, book_sales = #{book_sales} where
+      book_num = #{book_num}
+
+   </update>
+
+
+   <select id="getOrderList"
+      resultType="com.ezen.book.domain.OrderDTO">
+
+      select * from productorder where order_mem_num = #{order_mem_num}
+
+   </select>
+
+   <select id="orderDetail"
+      resultType="com.ezen.book.domain.OrderItemDTO">
+
+      select * from orderitem where order_num = #{order_num}
+
+   </select>
+   
+   <update id="Confirmed">
+   
+      update productorder set order_sta = '구매완료' where order_num = #{order_num}
+   
+   </update>
+   
+   <update id="setDelivery" parameterType="com.ezen.book.domain.DeliveryDTO" >
+   
+   <![CDATA[
+      update productorder set order_sta = '배송중' where order_mem_num = #{mem_num} and order_date < #{order_date} and order_sta != '구매완료'
+   ]]>   
+   
+   </update> 
+   
+</mapper>

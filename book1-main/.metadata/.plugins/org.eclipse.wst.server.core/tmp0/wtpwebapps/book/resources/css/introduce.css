@@ -1,0 +1,37 @@
+@charset "UTF-8";
+.main{
+	width:1260px;
+	margin: 0 auto;
+	
+	text-align: center;
+	border:1px solid gray;
+}
+.intro>a>button{
+  	background-color: white;
+	margin: 20px;
+	font-size: 20px;
+	border: none;
+	border-bottom: 1px solid gray;
+}
+.intro>a>button:hover{
+	background-color: rgba(210, 209, 209, 0.831);
+}
+.intro{
+	display: flex;
+	justify-content: center;
+}
+table,
+td,th{
+    border: 1px solid black;
+    text-align: center;
+}
+table{
+    margin:0 auto;
+    width: 600px;
+}
+.tableBox{
+	margin: 20px 0px;
+}
+.companyNumAndAddress{
+	margin:40px 0px;
+}

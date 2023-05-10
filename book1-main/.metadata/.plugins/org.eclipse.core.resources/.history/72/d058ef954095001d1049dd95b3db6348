@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ezen.book.repository.MemberDAO">
+	<select id="getId" resultType="com.ezen.book.domain.MemberVO">
+		select * from member where mem_id=#{mem_id}
+	</select>
+	<insert id="insertMember">
+		insert into member(mem_id,mem_pw,mem_name,mem_ad,mem_age,mem_gender,
+		mem_cell_num,mno_cno,mem_postzip)
+		values 
+		(#{mem_id},#{mem_pw},#{mem_name},#{mem_ad},#{mem_age},#{mem_gender},#{mem_cell_num},#{mno_cno},#{mem_postzip})
+	</insert>
+	<select id="login" resultType="int">
+		select * from member where mem_id=#{mem_id} and mem_pw=#{mem_pw}
+	</select>
+	<update id="usermodify">
+		update member set mem_id=#{mem_id}, mem_pw=#{mem_pw}, mem_ad=#{mem_ad}, mem_cell_num=#{mem_cell_num}, mno_cno=#{mno_cno}
+		where mem_num=#{mem_num}
+	</update>
+	<select id="getIdSearch" resultType="String">
+		select mem_id from member where mem_name=#{mem_name} and mem_cell_num=#{mem_cell_num}
+	</select>
+		<select id="getPwSearch" resultType="String">
+		select mem_pw from member where mem_id=#{mem_id} and mem_name=#{mem_name} and mem_cell_num=#{mem_cell_num}
+	</select>
+	<update id="updateAdderess">
+		update member set mem_ad=#{mem_ad} where mem_num=(select mem_num from (select max(mem_num) as mem_num from member)as a_t)
+	</update>
+	<update id="newPwUpdate">
+		update member set mem_pw=#{mem_pw} where mem_id=#{mem_id}
+	</update>
+	<select id="getCellNum" resultType="String">
+		select mem_cell_num from member where mem_cell_num=#{mem_cell_num}
+	</select>
+		<delete id="memberDelete">
+		delete from member where mem_num=#{mem_num}
+	</delete>
+		<select id="getMember" resultType="com.ezen.book.domain.MemberVO">
+		select*from member where mem_id=#{brd_writer}
+	</select>
+	<select id="memberList" resultType="com.ezen.book.domain.MemberVO">
+		select * from member
+		limit #{pvo.pageStart},#{pvo.qty}
+	</select>
+	<delete id="memRemove">
+		delete from member where mem_num = #{mem_num}
+	</delete>
+		<select id="getUser" resultType="com.ezen.book.domain.MemberVO">
+		select * from member where mem_id = #{mem_id}
+	</select>
+	<select id="totalCount" resultType="int">
+		select count(mem_num) from member
+	</select>
+</mapper>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ezen.book.repository.NonMemberDAO">
+	<select id="searchNum" resultType="int">
+		select mem_num from unmember where mem_name=#{mem_name} and mem_cell_num=#{mem_cell_num}
+	</select>
+	
+</mapper>

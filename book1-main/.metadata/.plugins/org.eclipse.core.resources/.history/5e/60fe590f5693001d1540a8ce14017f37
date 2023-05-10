@@ -1,0 +1,205 @@
+package com.ezen.book.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.ezen.book.domain.BookVO;
+import com.ezen.book.domain.FileDTO;
+import com.ezen.book.handler.FileHandler;
+import com.ezen.book.handler.PagingHandler;
+import com.ezen.book.repository.MemberDAO;
+import com.ezen.book.service.BookService;
+import com.ezen.book.service.MemberServiceImpl;
+import com.ezen.book.domain.BoardVO;
+import com.ezen.book.domain.BookDTO;
+import com.ezen.book.domain.BookVO;
+import com.ezen.book.domain.FileVO;
+import com.ezen.book.domain.MemberVO;
+import com.ezen.book.domain.PagingVO;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@RequestMapping("/book/*")
+@Controller
+public class BookController {
+
+   @Inject
+   private BookService bks;
+   
+   @Inject
+   private MemberDAO mao;
+   
+   @Inject
+   private MemberServiceImpl msv;
+   
+   @Inject
+   private FileHandler fhd;
+
+   
+   @GetMapping("/search")
+   public String searchlist(Model model,PagingVO pvo){     
+      ArrayList<BookVO> list = bks.getSearchList(pvo);         
+      FileVO fvo = new FileVO(); 
+      List<FileDTO> list2 = new ArrayList<FileDTO>();
+      for(BookVO b : list) {
+         int book_num = b.getBook_num();
+         fvo = bks.getFile(book_num);
+         if(fvo != null) {
+            FileDTO fdto = new FileDTO(b, fvo.getSave_dir(), fvo.getUuid(), fvo.getFile_name());
+            list2.add(fdto);
+      
+         }else {
+            FileDTO fdto = new FileDTO(b, "", "", "");
+            list2.add(fdto);
+         }
+      }
+      model.addAttribute("list", list2);
+      int totalCount=bks.getTotalCount(pvo);
+      PagingHandler ph = new PagingHandler(pvo,totalCount);
+      model.addAttribute("pgh",ph);
+      return "/book/bookList";         
+   }
+   
+   @GetMapping("/bkRegister")
+   public String bkRegisterGet(Model model) {
+      model.addAttribute("category", "product");
+      model.addAttribute("content", "bookRegister");
+      return "/member/memberAdmin";
+   }
+   
+   @GetMapping("/bkDetailView")
+   public String bkDetailView(Model model,@RequestParam("book_num")int book_num) {
+
+      BookDTO bkto = bks.getDetailBook(book_num);
+      log.info("getBkvo tostring: "+bkto.getBkvo().toString());
+      
+      log.info("getFList tostring: "+bkto.getFList().size());
+      
+      model.addAttribute("bvo", bkto.getBkvo());
+      model.addAttribute("fList", bkto.getFList());
+   
+      return "/book/bookDetailView";
+   }
+   
+   @PostMapping("/bkRegister")
+   public String register(BookVO bkvo, RedirectAttributes rAttr,
+         @RequestParam(name="files", required = false)MultipartFile[] files) {
+      log.info(">>> bkvo 등록 : "+bkvo.toString());
+      //log.info(">>> files 등록 : "+files.toString());
+      List<FileVO> fList = null;
+      if(files[0].getSize()>0) {
+         fList = fhd.uploadFiles(files);
+      }else {
+         log.info("file null");
+      }
+      BookDTO bkto = new BookDTO(bkvo, fList);
+      int isOk = bks.register(bkto);
+      rAttr.addAttribute("isOk",  isOk>0 ? "1":"0");
+      log.info("board register >> "+( isOk>0 ? "OK":"FAIL"));
+      return "/member/memberAdmin";
+   }
+   
+   @GetMapping("/list")
+   public String list(Model model, PagingVO pvo) {
+      log.info(">>>> pageNo : "+pvo.getPageNo());
+      List<BookVO> list = bks.getList(pvo);
+      FileVO fvo = new FileVO(); 
+      List<FileDTO> list2 = new ArrayList<FileDTO>();
+      for(BookVO b : list) {
+         int book_num = b.getBook_num();
+         fvo = bks.getFile(book_num);
+         if(fvo != null) {
+            FileDTO fdto = new FileDTO(b, fvo.getSave_dir(), fvo.getUuid(), fvo.getFile_name());
+            list2.add(fdto);
+  
+         }else {
+            FileDTO fdto = new FileDTO(b, "", "", "");
+            list2.add(fdto);
+   
+         }
+      }
+      
+      model.addAttribute("li", list2);
+      
+      int totalCount = bks.getTotalCount(pvo);
+      PagingHandler ph = new PagingHandler(pvo, totalCount);
+      model.addAttribute("pgh", ph);
+      
+       model.addAttribute("category", "product");
+         model.addAttribute("content", "bookList");
+         
+      return "/member/memberAdmin";
+   }
+   
+   @GetMapping("/detail") //관리자페이지 product 디테일 페이지
+   public String bookDetail(Model model, @RequestParam("book_num")int book_num) {
+      BookDTO bkto = bks.getDetailBook(book_num);
+      model.addAttribute("bo", bkto.getBkvo());
+      model.addAttribute("fList", bkto.getFList());
+      
+         model.addAttribute("category", "product");
+         model.addAttribute("content", "bookDetail");
+      return "/member/memberAdmin";
+   }
+   
+   @GetMapping("/bkModify")
+   public String modifyCall(Model model, @RequestParam("book_num")int book_num) {
+      BookDTO bkto = bks.getDetailBook(book_num);
+      model.addAttribute("bo", bkto.getBkvo());
+      model.addAttribute("fList", bkto.getFList());
+      
+      
+         model.addAttribute("category", "product");
+         model.addAttribute("content", "bookModify");
+      return "/member/memberAdmin";
+   }
+   
+   @PostMapping("/modify")
+   public String bookModify(RedirectAttributes reAttr, BookVO bkvo,
+         @RequestParam(name="files", required = false)MultipartFile[] files){
+         List<FileVO> fList = null;
+         if(files[0].getSize() > 0) {
+            fList = fhd.uploadFiles(files);
+         }
+         int isUp = bks.modify(new BookDTO(bkvo, fList));
+         log.info(">> modify: "+(isUp > 0? "ok":"fail"));
+         reAttr.addFlashAttribute(isUp > 0? "1":"0");
+         return "redirect:/book/list";   
+   }
+   
+   @GetMapping("/bkRemove")
+   public String bookRemove(RedirectAttributes reAttr, @RequestParam("book_num")int book_num, 
+         HttpServletRequest req) {
+      
+      MemberVO mem = msv.getMember(req);
+      int isUp = bks.bookRemove(book_num, mem);
+      log.info(">> book remove : "+(isUp > 0? "ok":"fail"));
+      return "redirect:/book/list";
+   }
+   
+   @DeleteMapping(value = "/file/{uuid}", produces = MediaType.TEXT_PLAIN_VALUE)
+   public ResponseEntity<String> removeFile(@PathVariable("uuid")String uuid){
+      log.info(">> file remove 체크1");
+      return bks.removeFile(uuid) > 0 ?
+            new ResponseEntity<String>("1", HttpStatus.OK)
+            : new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+   }
+}

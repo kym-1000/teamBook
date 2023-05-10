@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<typeInfoHistroy>
+    <typeInfo handle="=book/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.ezen.book.service{MemberService.java[MemberService" modifiers="513" timestamp="1674694564881"/>
+    <typeInfo handle="=book/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.ezen.book.service{NonMemberService.java[NonMemberService" modifiers="513" timestamp="1674624571000"/>
+    <typeInfo handle="=book/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.ezen.book.service{BookService.java[BookService" modifiers="513" timestamp="1674624571000"/>
+    <typeInfo handle="=book/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.ezen.book.service{OrderService.java[OrderService" modifiers="513" timestamp="1674624571000"/>
+    <typeInfo handle="=book/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.ezen.book.service{FaqService.java[FaqService" modifiers="513" timestamp="1674624571000"/>
+    <typeInfo handle="=book/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.ezen.book.service{ReviewService.java[ReviewService" modifiers="513" timestamp="1674624571000"/>
+    <typeInfo handle="=book/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.ezen.book.service{CartService.java[CartService" modifiers="513" timestamp="1674624571000"/>
+</typeInfoHistroy>

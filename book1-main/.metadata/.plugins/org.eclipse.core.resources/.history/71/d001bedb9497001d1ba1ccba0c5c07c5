@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ezen.book.repository.OrderDAO">
+   <select id="selectOrderList" resultType="com.ezen.book.domain.OrderVO">
+      select * from productorder
+      where order_mem_num=#{mem_num} 
+      order by order_num desc 
+      limit #{pvo.pageStart},#{pvo.qty};
+   </select>   
+   
+   <select id="selectBuyList" resultType="com.ezen.book.domain.OrderVO">
+      select * from productorder
+      where order_mem_num=#{mem_num} and order_sta=1 
+      order by order_num desc 
+      limit #{pvo.pageStart},#{pvo.qty};
+   </select>
+   
+   <select id="orderTotalCount" resultType="int">
+      select count(order_num) from productorder where order_mem_num=#{mem_num};
+   </select>
+   
+   <select id="buyTotalCount" resultType="int">
+      select count(order_num) from productorder where order_mem_num=#{mem_num} and order_sta=1;
+   </select>
+   
+</mapper>

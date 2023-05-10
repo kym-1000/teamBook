@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ezen.book.repository.NoticeDAO">
+	<select id="getTotalCount" resultType="int">
+		select count(ntc_num) from notice where ntc_num>0
+		<include refid="search"></include>
+	</select>
+	
+	<select id="getNoticeList" resultType="com.ezen.book.domain.NoticeVO">
+		select * from notice where ntc_num>0
+		<include refid="search"></include>	
+		order by ntc_num desc
+		limit #{pageStart}, #{qty}
+	</select>
+	
+		
+	
+	
+	
+	
+	<select id="getDetail" resultType="com.ezen.book.domain.NoticeVO">
+		select * from notice where ntc_num=#{ntc_num}
+	</select>
+	<insert id="noticeRegister">
+		insert into notice (ntc_title,ntc_writer,ntc_content,ntc_mem_num)
+		values
+		(#{ntc_title},#{ntc_writer},#{ntc_content},#{ntc_mem_num})
+	</insert>
+	<update id="getModify">
+		update notice set 
+		ntc_title=#{ntc_title},ntc_writer=#{ntc_writer},ntc_content=#{ntc_content}
+		where ntc_num=#{ntc_num}
+	</update>
+	<delete id="getDelete">
+		delete from notice where ntc_num=#{ntc_num}
+	</delete>
+	<select id="getNoticeListOnly"  resultType="com.ezen.book.domain.NoticeVO">
+		select * from notice
+		order by ntc_num desc
+		limit #{pvo.pageStart}, #{pvo.qty}
+	</select>
+	
+	
+		<sql id="search">
+		<if test="type != null">
+			<trim prefix="and (" suffix=")" prefixOverrides="OR">
+				<foreach collection="typeToArray" item="type">
+					<trim prefix="OR">
+						<choose>
+							<when test="type=='t'.toString()">
+								ntc_title like CONCAT('%', #{keyword}, '%')
+							</when>
+							<when test="type=='c'.toString()">
+								ntc_content like CONCAT('%', #{keyword}, '%')
+							</when>
+							<when test="type=='w'.toString()">
+								ntc_writer like CONCAT('%', #{keyword}, '%')
+							</when>
+						</choose>
+					</trim>
+				</foreach>
+			</trim>
+		</if>
+		</sql>
+	
+</mapper>

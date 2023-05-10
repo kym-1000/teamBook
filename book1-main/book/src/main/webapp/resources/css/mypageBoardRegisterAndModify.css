@@ -1,0 +1,31 @@
+@charset "UTF-8";
+.boardRegister{
+	text-align: left;
+	
+}
+.boardRegisterBox{
+
+	
+	padding: 15px 55px;
+}
+.brd_category,
+.brd_titleAndWriter,
+.brd_content,
+.brd_regdate{
+	margin:30px 0;
+}
+.brd_title{
+	width:435px;
+}
+.btn{
+	margin:0 auto;
+}
+.btnModify{
+	margin:50px 0;
+}
+.brd_content{
+	width:766.67px;
+	height: 246px;
+}
+
+

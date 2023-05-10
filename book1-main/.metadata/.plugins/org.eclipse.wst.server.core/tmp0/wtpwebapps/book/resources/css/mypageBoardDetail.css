@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+.boardDetail{
+	
+	text-align: left;
+}
+.boardDetail-regdate{
+	
+	font-size: 10px;
+	color:gray;
+}
+.boardDetail-writer{
+	
+	font-size:15px;
+}
+.boardDetail-content{
+	height: 200px;
+}
+.btn{
+	margin:5px auto;	
+}
+
+.linecenter{
+	line-height:79px;
+}

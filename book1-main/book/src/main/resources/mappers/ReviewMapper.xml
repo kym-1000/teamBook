@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ezen.book.repository.ReviewDAO">
+<insert id="insertReview" parameterType="com.ezen.book.domain.ReviewVO">
+   insert into review(review_book_num, review_rating, review_mem_id, review_content, review_regdate)
+   values(#{review_book_num}, #{review_rating}, #{review_mem_id}, #{review_content}, now())
+</insert>
+<select id="reviewList" resultType="com.ezen.book.domain.ReviewVO">
+   select * from review where review_book_num = #{review_book_num}
+</select>
+</mapper>

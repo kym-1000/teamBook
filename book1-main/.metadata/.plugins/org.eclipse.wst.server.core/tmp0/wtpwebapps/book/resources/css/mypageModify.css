@@ -1,0 +1,104 @@
+@charset "UTF-8";
+
+.MypageModify>input {
+	margin: 5px;
+}
+
+/* .MypageModify {
+	height: 728px;
+	padding: 30px;
+	border: 1px solid gray;
+	text-align: center;
+	margin: 29px;
+} */
+#mem_pw::placeholder {
+	font-size: 8px;
+}
+#mem_pwRe::placeholder {
+	font-size: 8px;
+}
+
+.join-input {
+	width: 300px;
+}
+
+.zip {
+	width: 150px;
+}
+
+.btn-submit {
+	margin: 20px;
+}
+
+.join-input {
+	width: 300px;
+}
+
+.zip {
+	width: 150px;
+}
+
+.button {
+	text-align: center;
+	margin-top: 50px;
+}
+/* 아이디,비밀번호, 핸드폰번호 사용 가능 여부 */
+.id_ok {
+	color: #008000;
+	display: none;
+}
+
+.id_duplicate {
+	color: #ff0000;
+	display: none;
+}
+
+.id_null {
+	color: #ff0000;
+	display: none;
+}
+
+.pw_ok {
+	color: #008000;
+	display: none;
+}
+
+.pw_rewrite {
+	color: #ff0000;
+	display: none;
+}
+
+.pw_null {
+	color: #ff0000;
+	display: none;
+}
+
+.pwRe_ok {
+	color: #008000;
+	display: none;
+}
+
+.pwRe_rewrite {
+	color: #ff0000;
+	display: none;
+}
+
+.pwRe_null {
+	color: #ff0000;
+	display: none;
+}
+
+.cellNum_ok {
+	color: #008000;
+	display: none;
+}
+
+.cellNum_duplicate {
+	color: #ff0000;
+	display: none;
+}
+
+.cellNum_null {
+	color: #ff0000;
+	display: none;
+}
